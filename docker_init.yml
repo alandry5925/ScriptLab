@@ -4,14 +4,14 @@
   tasks:
   - name: changedir for script based deployment
     shell: docker_init.sh >> initLog.txt
-      args:
-        chdir: /usr/scripts/
-        creates: initLog.txt
+    args:
+    chdir: /usr/scripts/
+    creates: initLog.txt
 
   - name: yum refresh of assets
-      yum:
-        name: '*'
-        state: latest
+    yum:
+      name: '*'
+      state: latest
   
   - name: Pull images for docker
     shell: docker pull linode/lamp
