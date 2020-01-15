@@ -1,20 +1,22 @@
 ---
+- hosts: 172.18.35.50
+tasks:
 - name: Add the Epel repo
-  yum:
-   name: epel-release
-   state: present
-
+   yum:
+    name: epel-release
+    state: present
+    
 - name: Add the REMI repo for PHP
- yum:
-  name: http://rpms.remirepo.net/enterprise/remi-release-7.rpm
-  state: present
+   yum:
+    name: http://rpms.remirepo.net/enterprise/remi-release-7.rpm
+    state: present
 
 - name: ENABLE REPOS
-  shell: yum-config-manager --enable remi-php73
+   shell: yum-config-manager --enable remi-php73
 
 - name: Install N.P.P STACK
- yum:
-     name:
+   yum:
+    name:
 - nginx
 - postgresql
 - postgresql-server
