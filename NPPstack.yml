@@ -18,17 +18,17 @@
     - name: Install N.P.P STACK
       yum:
         name:
-- nginx
-- postgresql
-- postgresql-server
-- yum-utils
-- php
-- php-common
-- php-opcache
-- php-mcrypt
-- php-cli
-- php-gd
-- php-curl
+          - nginx
+          - postgresql
+          - postgresql-server
+          - yum-utils
+          - php
+          - php-common
+          - php-opcache
+          - php-mcrypt
+          - php-cli
+          - php-gd
+          - php-curl
         state: present
 
     - name: Start NGINX
