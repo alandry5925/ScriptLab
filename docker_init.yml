@@ -1,0 +1,26 @@
+---
+- name: Deploy using shell modules
+  hosts: 172.18.35.50
+  tasks:
+    - name: changedir for script based deployment (only runs if log is present for write)
+	    shell: docker_init.sh >> initLog.txt
+		args:
+		  chdir: /usr/scripts/
+		  creates: initLog.txt
+		  
+    - name: yum refresh of assets
+	    yum:
+		  name: '*'
+		  state: latest
+		 
+    - name: Pull images for docker
+	  command: docker pull linode/lamp
+	  
+	- name: Run LAMP w/ port 80 forwarded
+	  command: docker run -p 80:80 linode/lamp /bin/bash
+	  
+	- name: Start apache and other mods
+	  command: docker exec service apache2 start
+	  
+    - name: Start Mysql
+	  command: docker exec service mysql start
