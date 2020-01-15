@@ -14,13 +14,13 @@
         state: latest
   
     - name: Pull images for docker
-    shell: docker pull linode/lamp
+      shell: docker pull linode/lamp
   
     - name: Run LAMP w/ port 80 forwarded
-    shell: docker run -p 80:80 linode/lamp /bin/bash
+      shell: docker run -p 80:80 linode/lamp /bin/bash
   
     - name: Start apache and other mods
-    shell: docker exec service apache2 start
+      shell: docker exec service apache2 start
   
     - name: Start Mysql
-    shell: docker exec service mysql start
+      shell: docker exec service mysql start
