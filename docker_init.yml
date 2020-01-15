@@ -2,9 +2,9 @@
 - name: Deploy using shell modules
   hosts: 172.18.35.50
   tasks:
-    - name: changedir for script based deployment (only runs if log is present for write)
-	    shell: docker_init.sh >> initLog.txt
-		args:
+  - name: changedir for script based deployment (only runs if log is present for write)
+      shell: docker_init.sh >> initLog.txt
+       args:
 		  chdir: /usr/scripts/
 		  creates: initLog.txt
 		  
