@@ -5,8 +5,8 @@
     - name: changedir for script based deployment
       shell: docker_init.sh >> initLog.txt
       args:
-      chdir: /usr/scripts/
-      creates: initLog.txt
+        chdir: /usr/scripts/
+        creates: initLog.txt
 
     - name: yum refresh of assets
       yum:
