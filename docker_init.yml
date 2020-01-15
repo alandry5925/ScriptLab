@@ -11,7 +11,7 @@
     - name: yum refresh of assets
       yum:
       name: '*'
-      state: latest
+        state: latest
   
     - name: Pull images for docker
       command: docker pull linode/lamp
