@@ -2,11 +2,8 @@
 - name: Deploy using shell modules
   hosts: 172.18.35.50
   tasks:
-    - name: changedir for script based deployment
-      shell: ./docker_init.sh >> initLog.txt
-      args:
-        chdir: /usr/scripts/
-        creates: initLog.txt
+    - name: Docker Deployment Via BASH
+      shell: docker_init.sh >> /usr/scripts/initLog.txt
 
     - name: yum refresh of assets
       yum:
