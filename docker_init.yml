@@ -3,7 +3,7 @@
   hosts: 172.18.35.50
   tasks:
     - name: changedir for script based deployment
-      shell: docker_init.sh >> initLog.txt
+      shell: ./docker_init.sh >> initLog.txt
       args:
         chdir: /usr/scripts/
         creates: initLog.txt
