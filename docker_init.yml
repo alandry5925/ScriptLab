@@ -3,8 +3,8 @@
   hosts: 172.18.35.50
   tasks:
     - name: Docker Deployment Via BASH
-      shell: docker_init.sh >> /usr/scripts/initLog.txt
-
+      script: /usr/scripts/docker_init.sh
+     
     - name: yum refresh of assets
       yum:
         name: '*'
