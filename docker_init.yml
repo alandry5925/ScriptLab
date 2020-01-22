@@ -3,7 +3,7 @@
   hosts: 172.18.35.50
   tasks:
     - name: Docker Deployment Via BASH
-      command: /scripts/Docker_Deploy.sh
+      command: /scripts/docker_init.sh
      
     - name: yum refresh of assets
       yum:
