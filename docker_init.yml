@@ -14,7 +14,7 @@
       shell: docker pull linode/lamp
   
     - name: Run LAMP w/ port 80 forwarded
-      shell: docker run --name lampcont -p 80:80 linode/lamp /bin/bash
+      shell: docker run --name lampcont -p 80:80 linode/lamp
   
     - name: Start apache and other mods
       shell: docker exec lampcont service apache2 start
