@@ -2,6 +2,7 @@
 yum install -y python36;
 pip3 install boto;
 mkdir -pv ~/.aws/;
+cd ~/.aws/;
 touch credentials;
 echo [default] >> credentials && echo aws_access_key_id = YOUR-ACCESS-KEY-HERE >> credentials && echo aws_secret_access_key = YOUR-SECRET-ACCESS-KEY-HERE;
 touch config;
