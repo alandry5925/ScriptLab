@@ -1,6 +1,6 @@
 #!/bin/sh
 yum install -y python36;
-pip3 install boto;
+pip3 install boto3;
 mkdir -pv ~/.aws/;
 cd ~/.aws/;
 touch credentials;
