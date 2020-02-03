@@ -1,5 +1,9 @@
 #!/bin/sh
-#Script for Installing and Deploying Ansible w/ AWX
+# Script Author: Austin Landry
+# Auth Date: 2/1/20
+# Designed for RHEL 7 / CENTOS 7
+# DOES NOT AUTOCONF PROXY SERVICES.
+# Script for Installing and Deploying Ansible w/ AWX
 echo "Adding rules for Firewalld";
 sleep 1;
 systemctl enable firewalld;
