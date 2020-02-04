@@ -2,7 +2,7 @@
 #Script for Installing and Deploying Ansible w/ AWX
 ################################
 ##Author: Austin Landry        #
-##Name  : awx_install_smart.sh #
+##Name  : awx_smart_install.sh #
 ##Date  : 2/4/2020             #
 ################################
 #Package Managers by Distro (DEFINED VARS)
@@ -11,7 +11,8 @@ YUM_PACKAGES="git gcc gcc-c++ lvm2 bzip2 gettext nodejs yum-utils device-mapper-
 APT_PACKAGES="firewalld gcc g++ lvm2 selinux-utils nodejs python-pip python3-pip python3.6"
 tput setaf 6;echo "Welcome to the AWX Smart Deployment script."; tput setaf 7;
 tput setaf 5;echo "Supported Distros: RHEL 7 / CENTOS 7 & UBUNTU 18.04"; tput setaf 7;
-tput setaf 4;read -n 1 -s -r -p "Press any key to continue";tput setaf 7;
+echo Press "[ENTER] to Continue";
+tput setaf 4;read prompt;tput setaf 7;
 
 if cat /etc/*release | grep ^NAME | grep CentOS; then
    tput setaf 6;echo "CentOS Detected";tput setaf 7;
@@ -55,7 +56,7 @@ elif cat /etc/*release | grep ^NAME | grep Ubuntu; then
    apt-get install -y $APT_PACKAGES;
    tput setaf 3;echo "Configuring firewall";tput setaf 7;
    firewall-cmd --add-service=http --permanent;firewall-cmd --add-service=https --permanent;
-   service firewalld --full-restart;
+   service firewalld reload;
    sleep 1;
    apt install -y docker.io;
    systemctl start docker && systemctl enable docker;
