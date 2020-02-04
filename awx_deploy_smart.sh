@@ -30,6 +30,7 @@ if cat /etc/*release | grep ^NAME | grep CentOS; then
    pip3 install selinux;
    sleep 1;
    git clone --depth 50 https://github.com/ansible/awx.git;
+   cd ~;
    cd awx/installer/;
    echo "Changing Interpreter to PY3";
    sed -i 's|/usr/bin/env python|/usr/bin/python3|g' /root/awx/installer/inventory;
@@ -43,29 +44,21 @@ elif cat /etc/*release | grep ^NAME | grep Ubuntu; then
    echo "Installing Packages";
    apt install software-properties-common;
    apt-add-repository --yes --update ppa:ansible/ansible;
-   apt install ansible;
+   apt install -y ansible;
    apt-get install -y $APT_PACKAGES;
    echo "Configuring firewall";
    firewall-cmd --add-service=http --permanent;firewall-cmd --add-service=https --permanent;
    service firewalld --full-restart;
    sleep 1;
-   #echo "Putting SELINUX in permissive mode";
-   #setenforce 0;
-   apt upgrade -y snapd;
-   #addgroup --system docker;
-   #adduser $USER docker;
-   #newgrp docker;
-   snap install docker;
-   snap connect docker:home :home;
-   snap disable docker
-   snap enable docker
-   snap start docker;
+   apt install -y docker.io;
+   systemctl start docker && systemctl enable docker;
    echo "Attempting install of Docker-Python";
    pip3 install docker-compose;
    echo "Installing PIP version of Selinux"
    pip3 install selinux;
    sleep 1;
    git clone --depth 50 https://github.com/ansible/awx.git;
+   cd ~;
    cd awx/installer/;
    echo "Changing python interpreter for AWX Installer file";
    sed -i 's|/usr/bin/env python|/usr/bin/python3|g' /root/awx/installer/inventory;
