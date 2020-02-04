@@ -1,6 +1,10 @@
 #!/bin/sh
 #Script for Installing and Deploying Ansible w/ AWX
-#sed -i 's|SELINUX=enforcing|SELINUX=disabled|g' /etc/selinux/config;
+################################
+##Author: Austin Landry        #
+##Name  : awx_install_smart.sh #
+##Date  : 2/4/2020             #
+################################
 #Package Managers by Distro (DEFINED VARS)
 set -e
 YUM_PACKAGES="git gcc gcc-c++ lvm2 bzip2 gettext nodejs yum-utils device-mapper-persistent-data python-pip python36 ansible.noarch epel-release"
