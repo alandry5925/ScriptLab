@@ -4,7 +4,7 @@
 #Package Managers by Distro (DEFINED VARS)
 set -e
 YUM_PACKAGES="git gcc gcc-c++ lvm2 bzip2 gettext nodejs yum-utils device-mapper-persistent-data python-pip python36 ansible.noarch epel-release"
-APT_PACKAGES="firewalld gcc g++ lvm2 selinux-utils nodejs python-pip python3.6 ansible"
+APT_PACKAGES="firewalld gcc g++ lvm2 selinux-utils nodejs python-pip python3-pip python3.6"
 
 if cat /etc/*release | grep ^NAME | grep CentOS; then
    echo "CentOS Detected";
@@ -41,6 +41,9 @@ elif cat /etc/*release | grep ^NAME | grep Ubuntu; then
    echo "Ubuntu Detected";
    sleep 3;
    echo "Installing Packages";
+   apt install software-properties-common;
+   apt-add-repository --yes --update ppa:ansible/ansible;
+   apt install ansible;
    apt-get install -y $APT_PACKAGES;
    echo "Configuring firewall";
    firewall-cmd --add-service=http --permanent;firewall-cmd --add-service=https --permanent;
@@ -53,7 +56,6 @@ elif cat /etc/*release | grep ^NAME | grep Ubuntu; then
    #adduser $USER docker;
    #newgrp docker;
    snap install docker;
-   snap connect docker:account-control :account-control;
    snap connect docker:home :home;
    snap disable docker
    snap enable docker
