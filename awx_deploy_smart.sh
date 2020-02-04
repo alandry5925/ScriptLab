@@ -46,8 +46,8 @@ elif cat /etc/*release | grep ^NAME | grep Ubuntu; then
    firewall-cmd --add-service=http --permanent;firewall-cmd --add-service=https --permanent;
    service firewalld --full-restart;
    sleep 1;
-   echo "Putting SELINUX in permissive mode";
-   setenforce 0;
+   #echo "Putting SELINUX in permissive mode";
+   #setenforce 0;
    snap install docker;
    service docker start;
    echo "Attempting install of Docker-Python";
