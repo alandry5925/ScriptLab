@@ -1,35 +1,79 @@
 #!/bin/sh
-# Script Author: Austin Landry
-# Auth Date: 2/1/20
-# Designed for RHEL 7 / CENTOS 7
-# DOES NOT AUTOCONF PROXY SERVICES.
-# Script for Installing and Deploying Ansible w/ AWX
-echo "Adding rules for Firewalld";
-sleep 1;
-systemctl enable firewalld;
-systemctl start firewalld;
-firewall-cmd --add-service=http --permanent;firewall-cmd --add-service=https --permanent;
-systemctl restart firewalld;
-tput setaf 3;echo "Putting SElinux in Permissive Mode"; tput setaf 7;
-sleep 1;
-setenforce 0;
-#Below omitted line causes the system to disable SElinux enforcement completely. Uncomment at will.
-#sed -i 's|SELINUX=enforcing|SELINUX=disabled|g' /etc/selinux/config;
-yum -y install epel-release;
-yum install -y git gcc gcc-c++ lvm2 bzip2 gettext nodejs yum-utils device-mapper-persistent-data python-pip python36 ansible.noarch;
-yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo;
-yum -y install docker
-systemctl start docker && systemctl enable docker;
-tput setaf 1; echo "Attempting PIP install of docker Python, if setup fails past this point PROCEED MANUALLY"; tput setaf 7;
-pip3 install docker-compose;
-sleep 1;
-echo "Installing PIP version of Selinux"
-pip3 install selinux;
-sleep 1;
-git clone --depth 50 https://github.com/ansible/awx.git;
-cd awx/installer/;
-echo "Changing Interpreter to PY3";
-sed -i 's|/usr/bin/env python|/usr/bin/python3|g' /root/awx/installer/inventory;
-ansible-playbook -i inventory install.yml;
-tput setaf 2; echo "Install complete, access your AWX instance using a web browser pointed at this HOST"; tput setaf 7;
-sleep 2;
+#Script for Installing and Deploying Ansible w/ AWX
+################################
+##Author: Austin Landry        #
+##Name  : awx_install_smart.sh #
+##Date  : 2/4/2020             #
+################################
+#Package Managers by Distro (DEFINED VARS)
+set -e
+YUM_PACKAGES="git gcc gcc-c++ lvm2 bzip2 gettext nodejs yum-utils device-mapper-persistent-data python-pip python36 ansible.noarch epel-release"
+APT_PACKAGES="firewalld gcc g++ lvm2 selinux-utils nodejs python-pip python3-pip python3.6"
+tput setaf 6;echo "Welcome to the AWX Smart Deployment script."; tput setaf 7;
+tput setaf 5;echo "Supported Distros: RHEL 7 / CENTOS 7 & UBUNTU 18.04"; tput setaf 7;
+tput setaf 4;read -n 1 -s -r -p "Press any key to continue";tput setaf 7;
+
+if cat /etc/*release | grep ^NAME | grep CentOS; then
+   tput setaf 6;echo "CentOS Detected";tput setaf 7;
+   sleep 3;
+   echo "Adding rules for Firewalld";
+   sleep 1;
+   systemctl enable firewalld;
+   systemctl start firewalld;
+   firewall-cmd --add-service=http --permanent;firewall-cmd --add-service=https --permanent;
+   systemctl restart firewalld;
+   tput setaf 3;echo "Installing packages..."; tput setaf 7;
+   yum install -y $YUM_PACKAGES;
+   tput setaf 1;echo "Putting SElinux in Permissive Mode";tput setaf 7;
+   sleep 1;
+   setenforce 0;
+   yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo;
+   yum -y install docker-ce;
+   systemctl start docker && systemctl enable docker;
+   tput setaf 1;echo "Attempting PIP install of docker Python, if setup fails past this point proceed manually";tput setaf 7;
+   pip3 install docker-compose;
+   sleep 1;
+   tput setaf 3;echo "Installing PIP version of Selinux"; tput setaf 7;
+   pip3 install selinux;
+   sleep 1;
+   git clone --depth 50 https://github.com/ansible/awx.git;
+   cd ~;
+   cd awx/installer/;
+   tput setaf 2;echo "Changing Interpreter to PY3";tput setaf 7;
+   sed -i 's|/usr/bin/env python|/usr/bin/python3|g' /root/awx/installer/inventory;
+   ansible-playbook -i inventory install.yml;
+   tput setaf 2;echo "CentOS Installation of AWX complete, Connect using Host IP on Port 80";tput setaf 7;
+   sleep 2;
+
+elif cat /etc/*release | grep ^NAME | grep Ubuntu; then
+   tput setaf 6;echo "Ubuntu Detected";tput setaf 7;
+   sleep 3;
+   tput setaf 3;echo "Installing Packages";tput setaf 7;
+   apt install software-properties-common;
+   apt-add-repository --yes --update ppa:ansible/ansible;
+   apt install -y ansible;
+   apt-get install -y $APT_PACKAGES;
+   tput setaf 3;echo "Configuring firewall";tput setaf 7;
+   firewall-cmd --add-service=http --permanent;firewall-cmd --add-service=https --permanent;
+   service firewalld --full-restart;
+   sleep 1;
+   apt install -y docker.io;
+   systemctl start docker && systemctl enable docker;
+   tput setaf 3;echo "Attempting install of Docker-Python";tput setaf 7;
+   pip3 install docker-compose;
+   tput setaf 3;echo "Installing PIP version of Selinux"tput setaf 7;
+   pip3 install selinux;
+   sleep 1;
+   git clone --depth 50 https://github.com/ansible/awx.git;
+   cd ~;
+   cd awx/installer/;
+   tput setaf 2;echo "Changing python interpreter for AWX Installer file";tput setaf 7;
+   sed -i 's|/usr/bin/env python|/usr/bin/python3|g' /root/awx/installer/inventory;
+   ansible-playbook -i inventory install.yml;
+   tput setaf 2;echo "Ubuntu Installation of AWX complete, Connect using Host IP on Port 80";tput setaf 7;
+   sleep 1;
+
+else
+  tput setaf 1;echo "SYSTEM IS NOT A Script-SUPPORTED DISTRO";tput setaf 7;
+  exit 1;
+fi;
