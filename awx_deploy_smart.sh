@@ -4,7 +4,7 @@
 #Package Managers by Distro (DEFINED VARS)
 set -e
 YUM_PACKAGES="git gcc gcc-c++ lvm2 bzip2 gettext nodejs yum-utils device-mapper-persistent-data python-pip python36 ansible.noarch epel-release"
-APT_PACKAGES="firewalld gcc g++ lvm2 selinux-utils nodejs python-pip python36 ansible"
+APT_PACKAGES="firewalld gcc g++ lvm2 selinux-utils nodejs python-pip python3.6 ansible"
 
 if cat /etc/*release | grep ^NAME | grep CentOS; then
    echo "CentOS Detected";
