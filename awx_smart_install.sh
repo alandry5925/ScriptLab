@@ -14,8 +14,8 @@ tput setaf 5;echo "Supported Distros: RHEL 7 / CENTOS 7 & UBUNTU 18.04"; tput se
 echo Press "[ENTER] to Continue";
 tput setaf 4;read prompt;tput setaf 7;
 
-if cat /etc/*release | grep ^NAME | grep CentOS; then
-   tput setaf 6;echo "CentOS Detected";tput setaf 7;
+if cat /etc/*release | grep ^NAME | grep -E -- 'CentOS|Red'; then
+   tput setaf 6;echo "CentOS or RHEL Detected";tput setaf 7;
    sleep 3;
    echo "Adding rules for Firewalld";
    sleep 1;
