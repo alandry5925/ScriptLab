@@ -7,7 +7,7 @@
 ################################
 #Package Managers by Distro (DEFINED VARS)
 set -e
-YUM_PACKAGES="git gcc gcc-c++ lvm2 bzip2 gettext nodejs yum-utils device-mapper-persistent-data python-pip python36 ansible.noarch epel-release"
+YUM_PACKAGES="git gcc gcc-c++ lvm2 bzip2 gettext nodejs yum-utils device-mapper-persistent-data python-pip python36 ansible epel-release"
 APT_PACKAGES="firewalld gcc g++ lvm2 selinux-utils nodejs python-pip python3-pip python3.6"
 tput setaf 6;echo "Welcome to the AWX Smart Deployment script."; tput setaf 7;
 tput setaf 5;echo "Supported Distros: RHEL 7 / CENTOS 7 & UBUNTU 18.04"; tput setaf 7;
