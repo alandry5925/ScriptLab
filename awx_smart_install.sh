@@ -25,7 +25,7 @@ if cat /etc/*release | grep ^NAME | grep -E -- 'CentOS|Red'; then
    systemctl restart firewalld;
    tput setaf 3;echo "Installing packages..."; tput setaf 7;
    yum install -y $YUM_PACKAGES;
-   tput setaf1; echo "Installing Ansible Noarch";tput setaf 7;
+   tput setaf 1; echo "Installing Ansible Noarch";tput setaf 7;
    yum install -y ansible-2.9.3-1.el7.noarch;
    tput setaf 1;echo "Putting SElinux in Permissive Mode";tput setaf 7;
    sleep 1;
