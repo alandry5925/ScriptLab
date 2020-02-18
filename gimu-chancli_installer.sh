@@ -13,7 +13,7 @@ yum install -y git python36;
 pip3 install urwid;
 cd /home/$USER/;
 git clone https://github.com/Gimu/chancli.git;
-alias 4chan='python3 /home/$USER/chancli/chancli.py;
+echo "alias 4chan='python3 /home/$USER/chancli/chancli.py'" >> ~/.bashrc;
 sleep 1;
 tput setaf 3; echo "chancli script installed, Alias has been set to '4chan'"; tput setaf 7;
 echo "Dependencies Installed: Python3.6 and git";
