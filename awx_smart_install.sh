@@ -27,9 +27,6 @@ if cat /etc/*release | grep ^NAME | grep -E -- 'CentOS|Red'; then
    yum install -y $YUM_PACKAGES;
    tput setaf 1; echo "Installing Ansible Noarch";tput setaf 7;
    yum install -y ansible-2.9.3-1.el7.noarch;
-   tput setaf 1;echo "Putting SElinux in Permissive Mode";tput setaf 7;
-   sleep 1;
-   setenforce 0;
    yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo;
    yum -y install docker-ce;
    systemctl start docker && systemctl enable docker;
