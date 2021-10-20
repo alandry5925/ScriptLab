@@ -11,7 +11,7 @@ YUM_PACKAGES="git gcc gcc-c++ lvm2 bzip2 gettext nodejs yum-utils device-mapper-
 APT_PACKAGES="firewalld gcc g++ lvm2 selinux-utils nodejs python-pip python3-pip python3.6"
 tput setaf 6;echo "Welcome to the AWX Smart Deployment script."; tput setaf 7;
 tput setaf 5;echo "Supported Distros: RHEL 7 / CENTOS 7 & UBUNTU 18.04"; tput setaf 7;
-echo Press "[ENTER] to Continue";
+echo "Press [ENTER] to Continue";
 tput setaf 4;read prompt;tput setaf 7;
 
 if cat /etc/*release | grep ^NAME | grep -E -- 'CentOS|Red'; then
